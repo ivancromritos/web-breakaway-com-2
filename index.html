@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>冰球突破 · 稳定入口 | 信息卡片介绍</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", system-ui, sans-serif;
+            background: #f2f7fa; 
+            color: #1b2b36;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-wrap {
+            max-width: 960px;
+            width: 100%;
+        }
+
+        /* 网格卡片背景 + 蓝绿点缀 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (min-width: 540px) {
+            .card-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (min-width: 860px) {
+            .card-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.5rem 1.25rem;
+            box-shadow: 0 2px 12px rgba(0, 44, 58, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(0, 148, 146, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 118, 128, 0.12);
+            border-color: rgba(0, 158, 155, 0.25);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 0.75rem;
+            color: #12848a;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.01em;
+            color: #09444d;
+        }
+
+        .card p {
+            font-size: 0.925rem;
+            color: #2b4a56;
+            margin: 0.2rem 0 0.3rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #d9efef;
+            color: #10666b;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.2rem 0.65rem;
+            border-radius: 40px;
+            align-self: flex-start;
+            margin-top: 0.5rem;
+            border: 1px solid #b2dbdb;
+        }
+
+        /* HERO 主视觉 */
+        .hero {
+            background: linear-gradient(138deg, #e4f2f2 0%, #d2e9ec 100%);
+            border-radius: 24px;
+            padding: 2.2rem 1.8rem;
+            margin: 0 0 0.8rem;
+            border: 1px solid #b6d5d9;
+            box-shadow: 0 4px 12px rgba(0,60,65,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(0,180,175,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 650;
+            color: #07454f;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .sub {
+            font-size: 1.05rem;
+            color: #1b5d66;
+            background: rgba(255,255,255,0.55);
+            display: inline-block;
+            padding: 0.2rem 1rem 0.2rem 0.8rem;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero p {
+            margin-top: 1rem;
+            font-size: 1rem;
+            max-width: 80%;
+            color: #1b4d56;
+        }
+
+        @media (max-width: 500px) {
+            .hero { padding: 1.5rem 1.2rem; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero p { max-width: 100%; }
+        }
+
+        /* 自然链接段落 */
+        .link-paragraph {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.4rem 1.5rem;
+            margin: 1.2rem 0;
+            border-left: 5px solid #2ba8a6;
+            box-shadow: 0 1px 6px rgba(0,70,70,0.04);
+            font-size: 1rem;
+            color: #1d3c45;
+        }
+
+        .link-paragraph a {
+            color: #12777a;
+            text-decoration: none;
+            font-weight: 550;
+            border-bottom: 1.5px solid rgba(30, 140, 138, 0.3);
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .link-paragraph a:hover {
+            color: #0b5356;
+            border-bottom-color: #0b6d6b;
+        }
+
+        /* FAQ 摘要卡片 */
+        .faq-mini {
+            background: #e9f2f1;
+            border-radius: 18px;
+            padding: 1rem 1.5rem;
+            margin-top: 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+            border: 1px solid #c0dddd;
+        }
+
+        .faq-mini span {
+            color: #08575a;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .faq-mini small {
+            color: #216b6e;
+            background: #ffffffb8;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #5d7e84;
+            text-align: center;
+            border-top: 1px solid #c7dddf;
+            padding-top: 1.2rem;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #c7dfe0, transparent);
+            margin: 1rem 0;
+        }
+
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 0.6rem;
+            margin-top: 0.75rem;
+        }
+
+        .badge-list span {
+            background: #dcecec;
+            padding: 0.1rem 0.5rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: #094f52;
+            border: 1px solid #b2d1d1;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+
+    <!-- 主视觉 HERO -->
+    <div class="hero">
+        <div class="sub">冰球突破 · 信息卡片</div>
+        <h1>稳定入口 &amp; 页面说明</h1>
+        <p>围绕核心玩法与使用场景，提供清晰的功能指引和适合人群参考。所有内容基于站点实际结构整理，无冗余跳转。</p>
+        <div style="margin-top: 0.8rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="tag">🟢 快速索引</span>
+            <span class="tag">🔹 功能卡片</span>
+            <span class="tag">🧊 蓝绿点缀</span>
+        </div>
+    </div>
+
+    <!-- 用途卡片 + 适合人群（网格卡片） -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>游戏导航</h3>
+            <p>清晰划分模块入口，聚焦冰球突破版面与常用功能区块，减少查找时间。</p>
+            <div class="badge-list">
+                <span>快捷跳转</span>
+                <span>分类筛选</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🧭</div>
+            <h3>稳定入口</h3>
+            <p>页面结构固定，不依赖第三方重定向，提供可直接存取的访问路径。</p>
+            <div class="badge-list">
+                <span>直连模式</span>
+                <span>低延迟</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>适合人群</h3>
+            <p>偏好简洁界面的老玩家、需要固定入口的新手、以及注重信息集中度的浏览者。</p>
+            <div class="tag">日常使用</div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h3>场景适配</h3>
+            <p>桌面端及移动端均可保持统一卡片布局，蓝绿色调辅助定位，不易疲劳。</p>
+            <div class="badge-list">
+                <span>响应式</span>
+                <span>低干扰</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚙️</div>
+            <h3>快速查阅</h3>
+            <p>功能卡片聚合常见说明，无需多次跳转即可获得页面关键信息。</p>
+            <div class="tag">效率优先</div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🧩</div>
+            <h3>信息密度</h3>
+            <p>每张卡片聚焦单一用途，配合标签系统，让内容更具可扫读性。</p>
+            <div class="badge-list">
+                <span>结构化</span>
+                <span>分段清晰</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自然链接段落（嵌入冰球突破）-->
+    <div class="link-paragraph">
+        <strong>关于页面入口：</strong> 本介绍页面向用户展示网站 <a href="https://web-breakaway.com">冰球突破</a> 的主要功能层次与布局说明，无需反复试探即可了解模块分布。适合作为日常访问的固定参考页，保持信息认知一致性。
+    </div>
+
+    <!-- 附加简介 + 第二链接（自然句）-->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; margin: 0.5rem 0;">
+        <div style="background: #f0f9f8; border-radius: 18px; padding: 0.9rem 1.2rem; flex: 1; min-width: 200px; border: 1px solid #bcd8da;">
+            <div style="font-weight: 600; color: #0b5b60; margin-bottom: 0.2rem;">📌 设计思路</div>
+            <p style="font-size: 0.9rem;">采用卡片式信息分组，将用途、场景、人群三项拆解，同时保留蓝绿视觉主线。页面可直接作为 <a href="https://web-breakaway.com" style="color:#12777a; text-decoration: underline 1px dashed #2b9b99; text-underline-offset: 3px;">冰球突破</a> 的附属说明页使用。</p>
+        </div>
+        <div style="background: #e9f2f0; border-radius: 18px; padding: 0.9rem 1.2rem; flex: 1; min-width: 200px; border: 1px solid #b5d3d3;">
+            <div style="font-weight: 600; color: #0b5b60; margin-bottom: 0.2rem;">🧊 蓝绿点缀</div>
+            <p style="font-size: 0.9rem;">配色取自冰川与浅水，卡片底部标签与边框均以低饱和蓝绿区分层次，视觉友好且不易过时。</p>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <span>❓ 常见疑问摘要</span>
+        <small>页面是否包含外部跳转？</small>
+        <small>卡片信息多久更新？</small>
+        <small>移动端展示是否完整？</small>
+        <span style="font-size:0.8rem; opacity:0.7;">→ 均基于站点实际结构</span>
+    </div>
+
+    <div class="footer-note">
+        本页为信息卡片式介绍 · 聚焦稳定入口与功能说明 · 内容源自 <a href="https://web-breakaway.com" style="color:#10757a; border-bottom: 1px dotted;">冰球突破</a> 站点结构
+    </div>
+</div>
+</body>
+</html>
